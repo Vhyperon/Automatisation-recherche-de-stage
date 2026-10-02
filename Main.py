@@ -23,8 +23,9 @@ def get_sheet():
 
 def scan_and_export():
     sheet = get_sheet()
-    # Récupération des URLs déjà enregistrées dans la 5ème colonne pour éviter les doublons
-    existing_urls = sheet.col_values(5) 
+    
+    # Récupération des URLs dans la 7ème colonne ("Lien / Contact") pour éviter les doublons
+    existing_urls = sheet.col_values(7) 
     
     for country in COUNTRIES:
         url = f"https://api.adzuna.com/v1/api/jobs/{country}/search/1"
@@ -44,13 +45,23 @@ def scan_and_export():
             
             # Vérification technique et unicité
             if job_url not in existing_urls and any(tech in desc for tech in TECH_FILTER):
+                
+                # Création de la ligne avec les 12 colonnes exactes de ton tableur
                 row = [
-                    datetime.now().strftime("%Y-%m-%d"),
-                    job['title'],
-                    job.get('company', {}).get('display_name', 'N/A'),
-                    job.get('location', {}).get('display_name', 'N/A'),
-                    job_url
+                    job.get('company', {}).get('display_name', 'N/A'),  # 1. Entreprise
+                    job['title'],                                       # 2. Intitulé de l'offre
+                    "Robotique",                                        # 3. Secteur d'activité (par défaut)
+                    "Stage",                                            # 4. Poste visé (par défaut)
+                    job.get('location', {}).get('display_name', 'N/A'), # 5. Localisation
+                    "",                                                 # 6. Numéro de téléphone (vide)
+                    job_url,                                            # 7. Lien / Contact
+                    "À analyser",                                       # 8. Statut (par défaut)
+                    datetime.now().strftime("%d/%m/%Y"),                # 9. Date d'ajout
+                    "",                                                 # 10. Date de contact (vide)
+                    "",                                                 # 11. Date de relance (vide)
+                    ""                                                  # 12. Notes / Prochaines étapes (vide)
                 ]
+                
                 sheet.append_row(row)
                 existing_urls.append(job_url)
 
