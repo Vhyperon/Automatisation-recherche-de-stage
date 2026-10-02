@@ -6,8 +6,8 @@ from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
 
 SEARCH_KEYWORDS = "robotics intern OR robotics internship"
-COUNTRIES = ["de", "nl", "dk", "es", "ch"] # Allemagne, Pays-Bas, Danemark, Espagne, Suisse
-TECH_FILTER = ["ros", "ros2", "python", "c++", "embedded", "vision"]
+COUNTRIES = ["de", "nl", "dk", "es", "ch","at","pl","se","cz","us","ca"] # Allemagne, Pays-Bas, Danemark, Espagne, Suisse
+TECH_FILTER = ["ros", "ros2", "python", "c++", "embedded", "vision","CAD","3D design"]
 
 ADZUNA_APP_ID = os.getenv("ADZUNA_APP_ID")
 ADZUNA_APP_KEY = os.getenv("ADZUNA_APP_KEY")
